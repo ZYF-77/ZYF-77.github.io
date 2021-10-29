@@ -8,7 +8,7 @@
   
   
   <title>
-    My New Post |
+    原型 |
     
     Hexo
   </title>
@@ -40,7 +40,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  My New Post
+  原型
 </h1>
 
 
@@ -59,17 +59,47 @@
 
     
     
+<div class="tocbot"></div>
+
     
 
     <div class="article-entry" itemprop="articleBody">
       
       
       
-      
+      <h1 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h1><p>每个函数都有一个prototype属性，它默认指向一个Object空对象（即称为：原型对象）</p>
+<ul>
+<li>空对象指，没有我们定义的属性</li>
+<li>给原型对象添加属性(一般是方法)，一般给实例对象调用</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Fn.prototype.say=<span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;<span class="built_in">console</span>.log(name)&#125; <span class="comment">//给原型对象添加方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fn = <span class="keyword">new</span> Fn() <span class="comment">//fn是Fn的实例</span></span><br><span class="line">fn.say(<span class="string">&#x27;章&#x27;</span>) <span class="comment">//章</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="显式原型和隐式原型"><a href="#显式原型和隐式原型" class="headerlink" title="显式原型和隐式原型"></a>显式原型和隐式原型</h1><ol>
+<li>每个函数function都有一个prototype，即显式原型</li>
+<li>每个实例对象都有一个__proto__，可称为隐式原型</li>
+<li>对象的隐式原型的值为其对应构造函数的显式原型的值</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> fn = <span class="keyword">new</span> Fn()</span><br><span class="line">fn.__proto__ === Fn.prototype <span class="comment">//true</span></span><br><span class="line">__proto__指向实例的构造函数的原型</span><br></pre></td></tr></table></figure>
+<h1 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h1><p>constructor存在function的prototype属性中，constructor 保存了指向 function 的一个引用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> fn = <span class="keyword">new</span> Fn()</span><br><span class="line"><span class="built_in">console</span>.log(fn.constructor) <span class="comment">// function Fn()&#123;&#125;</span></span><br><span class="line">fn是由Fn构造出来的，所以<span class="title">constructor</span>指向<span class="title">Fn</span></span><br><span class="line"><span class="title">console</span>.<span class="title">log</span>(<span class="params">Fn.constructor</span>) //<span class="title">function</span> <span class="title">Function</span>(<span class="params"></span>)</span><br><span class="line"><span class="title">Fn</span>是通过<span class="title">new</span> <span class="title">Function</span>(<span class="params"></span>)&#123;&#125;构造出来的</span><br><span class="line"><span class="built_in">console</span>.log(&#123;&#125;.constructor)<span class="comment">//function Object()&#123;&#125;</span></span><br><span class="line">对象通过<span class="keyword">new</span> <span class="built_in">Object</span>()构造</span><br></pre></td></tr></table></figure>
+<h1 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h1><p>访问一个对象的属性时：</p>
+<ul>
+<li><pre><code>先在自身属性中查找，找到返回
+</code></pre>
+</li>
+<li><pre><code>如果没有，再沿着__proto__这条链向上查找，找到返回
+</code></pre>
+</li>
+<li><pre><code>如果最终都没有找到，返回undefined
+</code></pre>
+</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3bf94f652e3b4e56969873ba01c9c41f~tplv-k3u1fbpfcp-watermark.image" alt="src=http___img2018.cnblogs.com_blog_1762947_201909_1762947-20190926094156327-588943618.jpg&amp;refer=http___img2018.cnblogs.jpg"></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/10/27/My-New-Post/" data-id="ckvbqin4s0000tku8cpwid27e" class="article-share-link">
+      <a data-url="http://example.com/2021/10/27/My-New-Post/" data-id="ckvc3rmqa0000dgu81z3f7kx9" class="article-share-link">
         Share
       </a>
       
@@ -79,16 +109,6 @@
 
   
   
-<nav class="article-nav">
-  
-  
-  <a href="/2021/10/27/hello-world/" class="article-nav-link">
-    <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">Hello World</div>
-  </a>
-  
-</nav>
-
   
 
   
